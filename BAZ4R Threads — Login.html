@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BAZ4R Threads — Entrar</title>
+<style>
+:root{box-sizing:border-box;--bg:#f6f3ff;--card:#fff;--tx:#1b1530;--mu:#6b6485;--ac:#6d28d9;--ac2:#f59e0b;--bd:#ddd6f3;--er:#b91c1c;--ok:#15803d;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120e22;--card:#1c1633;--tx:#f3effd;--mu:#a79fc4;--ac:#a78bfa;--bd:#35295c;--er:#f87171;--ok:#4ade80}}
+:root[data-theme="dark"]{--bg:#120e22;--card:#1c1633;--tx:#f3effd;--mu:#a79fc4;--ac:#a78bfa;--bd:#35295c;--er:#f87171;--ok:#4ade80}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center;padding:20px}
+main{width:100%;max-width:420px}
+.logo{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:6px}
+.logo svg{width:44px;height:44px}
+.logo b{font-size:26px;letter-spacing:.5px}
+.logo b span{color:var(--ac2)}
+.sub{text-align:center;color:var(--mu);margin:0 0 20px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:20px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--bg);padding:5px;border-radius:14px;margin-bottom:16px}
+.seg button{border:0;background:none;color:var(--mu);font:inherit;font-weight:600;padding:12px;border-radius:10px;cursor:pointer;min-height:48px}
+.seg button[aria-selected="true"]{background:var(--ac);color:#fff}
+label{display:block;font-size:14px;font-weight:600;margin:14px 0 6px}
+input{width:100%;font:inherit;font-size:16px;padding:14px;border-radius:12px;border:1.5px solid var(--bd);background:var(--bg);color:var(--tx);min-height:50px}
+input:focus{outline:2px solid var(--ac);border-color:transparent}
+.row{display:flex;gap:8px}
+.row button{min-width:76px;border:1.5px solid var(--bd);background:none;color:var(--tx);border-radius:12px;font:inherit;cursor:pointer}
+.hint{font-size:13px;color:var(--mu);margin:5px 0 0}
+.err{font-size:13px;color:var(--er);margin:5px 0 0;min-height:0}
+.go{width:100%;margin-top:20px;border:0;border-radius:14px;background:var(--ac);color:#fff;font:inherit;font-weight:700;font-size:17px;padding:15px;min-height:54px;cursor:pointer}
+.link{display:block;margin:14px auto 0;background:none;border:0;color:var(--ac);font:inherit;font-size:14px;cursor:pointer;text-decoration:underline}
+#msg{margin-top:16px;padding:12px 14px;border-radius:12px;font-size:14px;line-height:1.45;border:1px solid var(--bd);display:none}
+#msg.show{display:block}
+.alt{text-align:center;margin-top:14px}
+.alt button{background:none;border:0;color:var(--mu);font:inherit;font-size:13px;cursor:pointer;text-decoration:underline}
+.foot{text-align:center;color:var(--mu);font-size:12px;margin-top:18px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="logo">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#6d28d9"/><path d="M13 14h16a6 6 0 0 1 0 12H13zm0 12h18a6 6 0 0 1 0 12H13z" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linejoin="round"/></svg>
+    <b>BAZ4R <span>Threads</span></b>
+  </div>
+  <p class="sub">Entre para aceder ao site</p>
+
+  <div class="card">
+    <div class="seg" role="tablist">
+      <button role="tab" id="tLogin" aria-selected="true">Entrar</button>
+      <button role="tab" id="tReg" aria-selected="false">Criar conta</button>
+    </div>
+
+    <form id="f" novalidate>
+      <div id="gName" hidden>
+        <label for="name">Nome de utilizador</label>
+        <input id="name" autocomplete="username" maxlength="30">
+        <p class="err" id="eName"></p>
+      </div>
+
+      <div id="gPhone">
+        <label for="phone">Número Movitel (9 dígitos)</label>
+        <input id="phone" inputmode="numeric" maxlength="9" autocomplete="tel-national" placeholder="86XXXXXXX">
+        <p class="err" id="ePhone"></p>
+      </div>
+
+      <div id="gEmail" hidden>
+        <label for="email">E-mail</label>
+        <input id="email" type="email" autocomplete="email">
+        <p class="err" id="eEmail"></p>
+      </div>
+
+      <label for="pw" id="lPw">Palavra-passe (6 dígitos)</label>
+      <div class="row">
+        <input id="pw" type="password" autocomplete="current-password" inputmode="numeric" maxlength="6">
+        <button type="button" id="eye">Ver</button>
+      </div>
+      <p class="err" id="ePw"></p>
+
+      <div id="gPw2" hidden>
+        <label for="pw2">Repetir palavra-passe</label>
+        <input id="pw2" type="password" autocomplete="new-password" inputmode="numeric" maxlength="6">
+        <p class="err" id="ePw2"></p>
+      </div>
+
+      <button class="go" id="go" type="submit">Entrar</button>
+      <button class="link" id="rec" type="button">Esqueci a palavra-passe</button>
+      <div class="alt"><button type="button" id="alt">Usar e-mail em vez do número</button></div>
+    </form>
+
+    <div id="msg" role="status"></div>
+  </div>
+  <p class="foot">Pagamentos e pacotes só ficam disponíveis depois de iniciar sessão.</p>
+</main>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var reg=false, useEmail=false;
+
+  function render(){
+    $('tLogin').setAttribute('aria-selected',!reg);
+    $('tReg').setAttribute('aria-selected',reg);
+    $('gName').hidden=!reg;
+    $('gPw2').hidden=!reg;
+    $('gPhone').hidden=useEmail && !reg;
+    $('gEmail').hidden=!useEmail;
+    $('go').textContent=reg?'Criar conta':'Entrar';
+    $('rec').hidden=reg;
+    $('alt').hidden=reg;
+    $('alt').firstChild.textContent=useEmail?'Usar o número Movitel':'Usar e-mail em vez do número';
+    var six=!useEmail||reg;
+    $('lPw').textContent=six?'Palavra-passe (6 dígitos)':'Palavra-passe';
+    $('pw').maxLength=six?6:64; $('pw').inputMode=six?'numeric':'text';
+    $('pw').autocomplete=reg?'new-password':'current-password';
+    clear();
+  }
+  function clear(){
+    ['eName','ePhone','eEmail','ePw','ePw2'].forEach(function(i){$(i).textContent=''});
+    $('msg').className='';
+  }
+  function say(t,c){var m=$('msg');m.textContent=t;m.className='show';m.style.borderColor=c||'var(--bd)'}
+
+  $('tLogin').onclick=function(){reg=false;render()};
+  $('tReg').onclick=function(){reg=true;useEmail=false;render()};
+  $('alt').onclick=function(){useEmail=!useEmail;render()};
+  $('eye').onclick=function(){
+    var h=$('pw').type==='password';
+    $('pw').type=h?'text':'password'; $('pw2').type=h?'text':'password';
+    $('eye').textContent=h?'Ocultar':'Ver';
+  };
+  ['phone','pw','pw2'].forEach(function(i){
+    $(i).addEventListener('input',function(){
+      if(i!=='pw'||!useEmail||reg){this.value=this.value.replace(/\D/g,'')}
+    });
+  });
+
+  $('rec').onclick=function(){
+    clear();
+    say('A recuperação de conta precisa do servidor de contas, que ainda não está ligado. Nenhum pedido foi enviado.','var(--ac2)');
+  };
+
+  $('f').onsubmit=function(e){
+    e.preventDefault(); clear();
+    var ok=true, six=!useEmail||reg;
+    if(reg && $('name').value.trim().length<3){$('eName').textContent='Escreva pelo menos 3 caracteres.';ok=false}
+    if(!useEmail||reg){
+      if(!/^\d{9}$/.test($('phone').value)){$('ePhone').textContent='O número deve ter exatamente 9 dígitos.';ok=false}
+    } else if(!/^\S+@\S+\.\S+$/.test($('email').value)){$('eEmail').textContent='Escreva um e-mail válido.';ok=false}
+    if(six){ if(!/^\d{6}$/.test($('pw').value)){$('ePw').textContent='A palavra-passe tem 6 dígitos.';ok=false} }
+    else if($('pw').value.length<8){$('ePw').textContent='Use pelo menos 8 caracteres.';ok=false}
+    if(reg && $('pw').value!==$('pw2').value){$('ePw2').textContent='As palavras-passe não coincidem.';ok=false}
+    if(!ok) return;
+    say('Dados válidos, mas o servidor de contas ainda não está ligado. Nenhuma conta foi criada e nenhuma sessão foi iniciada.','var(--ac2)');
+  };
+  render();
+})();
+</script>
+</body>
+</html>
